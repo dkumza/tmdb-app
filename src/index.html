@@ -8,7 +8,7 @@
    </head>
    <body>
       <div class="container mx-auto">
-         <div class="app-wrapper">
+         <div class="app-wrapper flex">
             <nav class="nav-wrap">
                <div class="menu">
                   <ul class="menu-wrap">
@@ -26,7 +26,17 @@
                   </ul>
                </div>
             </nav>
-            <content class="content-wrap"></content>
+            <content class="content-wrap min-w-full">
+               <div class="search-wrap border">
+                  <form action="#" class="form-wrap">
+                     <input
+                        type="text"
+                        class="search"
+                        placeholder="Search for movie..."
+                     />
+                  </form>
+               </div>
+            </content>
          </div>
       </div>
    </body>

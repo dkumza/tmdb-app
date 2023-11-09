@@ -2,12 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-   /* background-color: #373941; */
-}
 .app-wrapper {
-   @apply border
-   min-h-screen;
+   @apply min-h-screen;
    /* background-color: #16181e; */
 }
 
@@ -16,13 +12,10 @@ body {
    flex
    flex-col
    justify-center
-   /* border-black */
    w-80
    min-h-screen
    py-8
    pl-8;
-   /* background-color: #22242d; */
-   /* color: white; */
 }
 
 .logo-wrap {
@@ -42,4 +35,15 @@ body {
    flex-col
    content-center
    gap-3;
+}
+
+/* form */
+.search-wrap {
+   @apply flex
+   justify-center
+   min-w-full;
+}
+
+.search {
+   @apply border;
 }

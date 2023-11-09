@@ -573,13 +573,20 @@ video {
   margin-right: auto;
 }
 
-body {
-  /* background-color: #373941; */
+.flex {
+  display: flex;
+}
+
+.min-w-full {
+  min-width: 100%;
+}
+
+.border {
+  border-width: 1px;
 }
 
 .app-wrapper {
   min-height: 100vh;
-  border-width: 1px;
   /* background-color: #16181e; */
 }
 
@@ -593,8 +600,6 @@ body {
   padding-top: 2rem;
   padding-bottom: 2rem;
   padding-left: 2rem;
-  /* background-color: #22242d; */
-  /* color: white; */
 }
 
 .logo-wrap {
@@ -613,4 +618,16 @@ body {
   flex-direction: column;
   align-content: center;
   gap: 0.75rem;
+}
+
+/* form */
+
+.search-wrap {
+  display: flex;
+  min-width: 100%;
+  justify-content: center;
+}
+
+.search {
+  border-width: 1px;
 }
