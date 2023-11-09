@@ -577,16 +577,31 @@ video {
   display: flex;
 }
 
-.min-w-full {
-  min-width: 100%;
+.w-full {
+  width: 100%;
+}
+
+.justify-center {
+  justify-content: center;
 }
 
 .border {
   border-width: 1px;
 }
 
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 .app-wrapper {
   min-height: 100vh;
+  border-width: 1px;
   /* background-color: #16181e; */
 }
 
@@ -606,6 +621,7 @@ video {
   width: 10rem;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  padding-right: 1rem;
 }
 
 .menu {
@@ -624,10 +640,14 @@ video {
 
 .search-wrap {
   display: flex;
-  min-width: 100%;
+  align-items: center;
   justify-content: center;
+  vertical-align: middle;
 }
 
 .search {
+  width: 50%;
   border-width: 1px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }

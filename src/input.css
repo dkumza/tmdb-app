@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 .app-wrapper {
-   @apply min-h-screen;
+   @apply min-h-screen
+   border;
    /* background-color: #16181e; */
 }
 
@@ -20,7 +21,8 @@
 
 .logo-wrap {
    @apply w-40
-   py-8;
+   py-8
+   pr-4;
 }
 
 .menu {
@@ -41,9 +43,12 @@
 .search-wrap {
    @apply flex
    justify-center
-   min-w-full;
+   align-middle
+   items-center;
 }
 
 .search {
-   @apply border;
+   @apply border
+   w-1/2
+   px-4;
 }
