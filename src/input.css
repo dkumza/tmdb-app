@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+   /* background-color: #373941; */
+}
+.app-wrapper {
+   @apply border
+   min-h-screen;
+   /* background-color: #16181e; */
+}
+
+.nav-wrap {
+   @apply border-r-2
+   flex
+   flex-col
+   justify-center
+   /* border-black */
+   w-80
+   min-h-screen
+   py-8
+   pl-8;
+   /* background-color: #22242d; */
+   /* color: white; */
+}
+
+.logo-wrap {
+   @apply w-40
+   py-8;
+}
+
+.menu {
+   @apply mt-8
+   /* border */
+   p-1;
+}
+
+.menu-wrap {
+   @apply flex
+   /* border */
+   flex-col
+   content-center
+   gap-3;
+}
