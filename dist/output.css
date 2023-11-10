@@ -594,12 +594,12 @@ video {
   margin-bottom: 2rem;
 }
 
-.ml-12 {
-  margin-left: 3rem;
-}
-
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+
+.ml-12 {
+  margin-left: 3rem;
 }
 
 .flex {
@@ -610,28 +610,12 @@ video {
   min-height: 100%;
 }
 
-.w-32 {
-  width: 8rem;
-}
-
-.w-full {
-  width: 100%;
-}
-
 .w-36 {
   width: 9rem;
 }
 
-.w-40 {
-  width: 10rem;
-}
-
-.w-44 {
-  width: 11rem;
-}
-
-.w-56 {
-  width: 14rem;
+.w-full {
+  width: 100%;
 }
 
 .cursor-pointer {
@@ -658,8 +642,8 @@ video {
   gap: 0.25rem;
 }
 
-.gap-2 {
-  gap: 0.5rem;
+.overflow-auto {
+  overflow: auto;
 }
 
 .border {
@@ -708,7 +692,7 @@ video {
 
 .search-field {
   display: flex;
-  width: 50%;
+  width: 75%;
   justify-content: space-between;
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
@@ -762,6 +746,12 @@ video {
   gap: 1rem;
 }
 
+.h1-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .m-c {
   flex-grow: 1;
   border-radius: 0.5rem;
@@ -781,15 +771,15 @@ video {
 }
 
 .movies-1 {
-  height: 13rem;
+  height: 18rem;
 }
 
 .movies-2 {
-  height: 20rem;
+  height: 18rem;
 }
 
 .celeb-1 {
-  height: 18rem;
+  height: 9rem;
 }
 
 /* footer links */

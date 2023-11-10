@@ -21,7 +21,7 @@
 .search-field {
    @apply flex 
    justify-between 
-   w-1/2
+   w-3/4
    shadow-sm;
 }
 
@@ -60,6 +60,10 @@
    w-full;
 }
 
+.h1-wrap {
+   @apply flex items-center justify-between;
+}
+
 .m-c {
    @apply border
    rounded-lg
@@ -71,15 +75,15 @@
 }
 
 .movies-1 {
-   @apply h-52;
+   @apply h-72;
 }
 
 .movies-2 {
-   @apply h-80;
+   @apply h-72;
 }
 
 .celeb-1 {
-   @apply h-72;
+   @apply h-36;
 }
 
 /* footer links */
