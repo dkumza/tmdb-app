@@ -35,7 +35,7 @@
 
 /* * text  */
 .h1-txt {
-   @apply mb-2 
+   @apply mb-4 
    text-2xl;
 }
 
@@ -53,10 +53,16 @@
 
 .latest-cont {
    @apply flex 
-   flex-wrap
-   gap-2
+   w-full
+   gap-4
    content-center 
-   justify-center;
+   justify-center
+   flex-wrap;
+}
+
+.trailer-wrap {
+   @apply object-contain min-w-full
+   h-64 transition transform hover:scale-105 duration-500;
 }
 
 .h1-wrap {
@@ -64,20 +70,20 @@
 }
 
 .m-c {
-   @apply border-gray-200
+   @apply border-gray-600
    hover:cursor-pointer
    hover:shadow-sm
    hover:bg-gray-50
-   min-w-fit;
+   grow;
 }
 
 .movies-1 {
-   @apply h-72;
+   @apply border;
 }
-
+/* 
 .movies-2 {
-   @apply h-96;
-}
+   @apply ;
+} */
 
 .celeb-1 {
    @apply h-36;
