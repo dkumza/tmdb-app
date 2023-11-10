@@ -4,51 +4,86 @@
 
 .app-wrapper {
    @apply min-h-screen
-   border;
+   border
+   p-8;
    /* background-color: #16181e; */
 }
 
-.nav-wrap {
-   @apply border-r-2
-   flex
-   flex-col
-   justify-center
-   w-80
-   min-h-screen
-   py-8
-   pl-8;
-}
-
 .logo-wrap {
-   @apply w-40
-   py-8
-   pr-4;
-}
-
-.menu {
-   @apply mt-8
-   /* border */
-   p-1;
-}
-
-.menu-wrap {
-   @apply flex
-   /* border */
-   flex-col
-   content-center
-   gap-3;
+   @apply w-96;
 }
 
 /* form */
 .search-wrap {
-   @apply flex
-   justify-center
-   align-middle
-   items-center;
+   @apply flex   
+   items-start;
+}
+.search-field {
+   @apply flex 
+   justify-between 
+   w-1/2
+   shadow-sm;
 }
 
 .search {
+   @apply w-full
+   border
+   rounded-lg
+   py-2 
+   px-6;
+}
+
+/* * text  */
+.h1-txt {
+   @apply mb-2 
+   text-2xl;
+}
+
+/* * movies css */
+
+.feature {
+   @apply border 
+   rounded-2xl 
+   h-80 
+   shadow-md
+   hover:cursor-pointer
+   hover:shadow-sm
+   hover:bg-gray-50;
+}
+
+.latest-cont {
+   @apply flex-wrap 
+   flex 
+   gap-4 
+   content-center 
+   justify-center 
+   w-full;
+}
+
+.m-c {
    @apply border
-   w-1/2
-   px-4;
+   rounded-lg
+   shadow-md
+   hover:cursor-pointer
+   hover:shadow-sm
+   hover:bg-gray-50
+   grow;
+}
+
+.movies-1 {
+   @apply h-52;
+}
+
+.movies-2 {
+   @apply h-80;
+}
+
+.celeb-1 {
+   @apply h-72;
+}
+
+/* footer links */
+.li-api {
+   @apply text-sm
+   hover:cursor-pointer;
 }
