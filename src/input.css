@@ -43,7 +43,7 @@
 
 .feature {
    @apply border 
-   rounded-2xl 
+   border-gray-100
    h-80 
    shadow-md
    hover:cursor-pointer
@@ -52,12 +52,11 @@
 }
 
 .latest-cont {
-   @apply flex-wrap 
-   flex 
-   gap-4 
+   @apply flex 
+   flex-wrap
+   gap-2
    content-center 
-   justify-center 
-   w-full;
+   justify-center;
 }
 
 .h1-wrap {
@@ -65,13 +64,11 @@
 }
 
 .m-c {
-   @apply border
-   rounded-lg
-   shadow-md
+   @apply border-gray-200
    hover:cursor-pointer
    hover:shadow-sm
    hover:bg-gray-50
-   grow;
+   min-w-fit;
 }
 
 .movies-1 {
@@ -79,7 +76,7 @@
 }
 
 .movies-2 {
-   @apply h-72;
+   @apply h-96;
 }
 
 .celeb-1 {
