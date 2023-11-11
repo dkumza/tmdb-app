@@ -40,14 +40,10 @@ const nowPlayingMovies = [];
 
 const showLatest3Trailers = (arr, num) => {
    const trailersWrap = document.querySelector(".trailers-wrap");
-   const latest3TrailersKeys = [];
+   // * to suffle values
+   // const shuffled = [...arr].sort(() => 0.5 - Math.random()).slice(0, num);
 
-   const shuffled = [...arr].sort(() => 0.5 - Math.random()).slice(0, num);
-   console.log(shuffled);
-   // *
-   const [...getId] = shuffled.map((val) => val.id);
-   // console.log(getId);
-
+   const [...getId] = arr.map((val) => val.id).splice(0, num);
    getId.map((val) => {
       fetch(
          `https://api.themoviedb.org/3/movie/${val}/videos?language=en-US`,
@@ -83,8 +79,6 @@ fetch(
    .then((response) => response.json())
    .then((response) => {
       nowPlayingMovies.push(...response.results);
-      console.log(response);
       showLatest3Trailers(nowPlayingMovies, 3);
-      // showTop5(topMovies);
    })
    .catch((err) => console.error(err));
