@@ -14,6 +14,7 @@ fetch(
 )
    .then((response) => response.json())
    .then((response) => {
+      console.log(response.results);
       topMovies.push(...response.results);
       showTop5(topMovies);
    })
@@ -28,9 +29,10 @@ const showTop5 = (topMovies) => {
       .slice(0, 5)
       .map(
          (val) => `
-        <div class="m-c transition transform hover:scale-105 duration-500 h-fit">
-            <img class="object-contain w-40 min-w-full" src="https://image.tmdb.org/t/p/original${val.poster_path}" alt="">
-        </div>`
+        
+            <div class="m-c transition transform hover:scale-95 duration-500 flex justify-center">
+               <img class="" src="https://image.tmdb.org/t/p/w300/${val.poster_path}" alt="">
+            </div>`
       )
       .join("");
 };
@@ -40,7 +42,7 @@ const nowPlayingMovies = [];
 
 const showLatest3Trailers = (arr, num) => {
    const trailersWrap = document.querySelector(".trailers-wrap");
-   // * to suffle values
+   // * to shuffle values
    // const shuffled = [...arr].sort(() => 0.5 - Math.random()).slice(0, num);
 
    const [...getId] = arr.map((val) => val.id).splice(0, num);

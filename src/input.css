@@ -54,15 +54,18 @@
 .latest-cont {
    @apply flex 
    w-full
-   gap-4
+   gap-1
    content-center 
    justify-center
-   flex-wrap;
+   flex-wrap
+   lg:flex-nowrap;
 }
 
 .trailer-wrap {
-   @apply object-contain min-w-full
-   h-64 transition transform hover:scale-105 duration-500;
+   @apply object-contain
+    min-w-full
+   h-64 
+   transition transform hover:scale-95 duration-500;
 }
 
 .h1-wrap {
@@ -70,16 +73,15 @@
 }
 
 .m-c {
-   @apply border-gray-600
-   hover:cursor-pointer
+   @apply hover:cursor-pointer
    hover:shadow-sm
    hover:bg-gray-50
    grow;
 }
 
-.movies-1 {
+/* .movies-1 {
    @apply border;
-}
+} */
 /* 
 .movies-2 {
    @apply ;
