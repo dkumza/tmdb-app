@@ -35,17 +35,47 @@ const showTop5 = (topMovies) => {
       .join("");
 };
 
+// * fetch latest movies
+const nowPlayingMovies = [];
+
 const showLatest3Trailers = (arr, num) => {
    const trailersWrap = document.querySelector(".trailers-wrap");
+   const latest3TrailersKeys = [];
 
-   const shuffled = [...arr].sort(() => 0.5 - Math.random());
+   const shuffled = [...arr].sort(() => 0.5 - Math.random()).slice(0, num);
+   console.log(shuffled);
+   // *
+   const [...getId] = shuffled.map((val) => val.id);
+   // console.log(getId);
 
-   return shuffled.slice(0, num);
-   //    console.log(trailersWrap);
+   getId.map((val) => {
+      fetch(
+         `https://api.themoviedb.org/3/movie/${val}/videos?language=en-US`,
+         options
+      )
+         .then((response) => response.json())
+         .then((response) => {
+            // console.log(response.results);
+            const result = response.results.find((val) => {
+               return val.type === "Trailer";
+            });
+            // console.log(result.key);
+            trailersWrap.innerHTML += `<div class="m-c movies-1">
+                                          <iframe
+                                          class="trailer-wrap"
+                                          src="https://www.youtube.com/embed/${result.key}?si=wU4EgryzidVHRpfn&controls=0"
+                                          title="YouTube video player"
+                                          frameborder="0"
+                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                          allowfullscreen
+                                          ></iframe>
+                                    </div>`;
+         })
+
+         .catch((err) => console.error(err));
+   });
 };
 
-const nowPlayingMovies = [];
-// * fetch latest movies
 fetch(
    "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
    options
@@ -53,8 +83,8 @@ fetch(
    .then((response) => response.json())
    .then((response) => {
       nowPlayingMovies.push(...response.results);
-      console.log(nowPlayingMovies);
-      showLatest3Trailers(nowPlayingMovies);
+      console.log(response);
+      showLatest3Trailers(nowPlayingMovies, 3);
       // showTop5(topMovies);
    })
    .catch((err) => console.error(err));
