@@ -47,7 +47,7 @@
    h-80 
    shadow-md
    hover:cursor-pointer
-   hover:shadow-sm
+   /* hover:shadow-md */
    hover:bg-gray-50;
 }
 
@@ -68,6 +68,14 @@
    transition transform hover:scale-95 duration-500;
 }
 
+.celeb-wrap {
+   @apply flex
+   w-full
+   flex-wrap
+   gap-1
+   lg:flex-nowrap;
+}
+
 .h1-wrap {
    @apply flex items-center justify-between;
 }
@@ -76,16 +84,15 @@
    @apply transition
    transform hover:scale-95 duration-500 
    flex 
-   justify-center   
    hover:cursor-pointer
    /* hover:shadow-lg */
    /* hover:bg-gray-50 */
    grow;
 }
 
-.celeb-1 {
-   @apply h-36;
-}
+/* .celeb-1 {
+   @apply ;
+} */
 
 /* footer links */
 .li-api {

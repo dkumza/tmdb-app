@@ -8,32 +8,37 @@ const options = {
 };
 
 // * fetch top rated movies
+const topMovies = [];
 fetch(
    "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
    options
 )
    .then((response) => response.json())
    .then((response) => {
-      console.log(response.results);
+      // console.log(response.results);
       topMovies.push(...response.results);
       showTop5(topMovies);
    })
    .catch((err) => console.error(err));
 
-const topMovies = [];
-
 const showTop5 = (topMovies) => {
    const showToDom = document.querySelector(".latest-cont");
-   //    console.log(topMovies);
+   // console.log(topMovies);
    showToDom.innerHTML = topMovies
       .slice(0, 5)
       .map(
          (val) => `        
-            <div class="m-c">
+            <div class="m-c flex flex-col">
                <img class="" src="https://image.tmdb.org/t/p/w300/${val.poster_path}" alt="">
+               <div>
+              
+               </div>
             </div>`
       )
       .join("");
+
+   // <h1 class="font-semibold pt-2 pl-1">${val.title}</h1>
+   // <h1 class=" text-sm pt-2 pl-1">${val.release_date}</h1>
 };
 
 // * fetch latest movies
@@ -80,6 +85,37 @@ fetch(
    .then((response) => response.json())
    .then((response) => {
       nowPlayingMovies.push(...response.results);
-      showLatest3Trailers(nowPlayingMovies, 3);
+      // showLatest3Trailers(nowPlayingMovies, 3);
    })
    .catch((err) => console.error(err));
+
+// * fetch top rated people
+const popP = [];
+fetch(
+   "https://api.themoviedb.org/3/person/popular?language=en-US&page=1",
+   options
+)
+   .then((response) => response.json())
+   .then((response) => {
+      console.log(response.results);
+      popP.push(...response.results);
+      showPop(popP);
+   })
+   .catch((err) => console.error(err));
+
+const showPop = (target) => {
+   const showP = document.querySelector(".celeb-wrap");
+   //    console.log(topMovies);
+   showP.innerHTML = target
+      .slice(0, 10)
+      .map(
+         (val) => `        
+            <div class="m-c celeb-1 flex flex-col">
+               <img class="" src="https://image.tmdb.org/t/p/w300/${val.profile_path}" alt="Photo of ${val.name}">
+               <div>
+                  <h1 class="font-semibold">${val.name}</h1>
+               </div>
+            </div>`
+      )
+      .join("");
+};

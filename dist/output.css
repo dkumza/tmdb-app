@@ -646,8 +646,12 @@ video {
   gap: 0.25rem;
 }
 
-.overflow-auto {
-  overflow: auto;
+.rounded {
+  border-radius: 0.25rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .border {
@@ -663,8 +667,21 @@ video {
   padding-bottom: 2rem;
 }
 
+.pl-1 {
+  padding-left: 0.25rem;
+}
+
 .pl-12 {
   padding-left: 3rem;
+}
+
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .text-xl {
@@ -737,9 +754,6 @@ video {
   cursor: pointer;
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
-  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .latest-cont {
@@ -776,6 +790,19 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.celeb-wrap {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+@media (min-width: 1024px) {
+  .celeb-wrap {
+    flex-wrap: nowrap;
+  }
+}
+
 .h1-wrap {
   display: flex;
   align-items: center;
@@ -786,7 +813,6 @@ video {
   display: flex;
   flex-grow: 1;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  justify-content: center;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
@@ -801,9 +827,9 @@ video {
   cursor: pointer;
 }
 
-.celeb-1 {
-  height: 9rem;
-}
+/* .celeb-1 {
+   @apply ;
+} */
 
 /* footer links */
 
