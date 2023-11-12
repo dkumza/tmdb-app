@@ -1,12 +1,3 @@
-const options = {
-   method: "GET",
-   headers: {
-      accept: "application/json",
-      Authorization:
-         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNTYzZmJlNjQ2ODUzODM1MDlkZTk5ZjRmMWU4ZjdlNSIsInN1YiI6IjY1NGNhNGY2ZDQ2NTM3MDBmZTM0NTBkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1LWXb6rU4E-WvOsJHOjPxr_XEJ6NEOIMUoBWsw86sCg",
-   },
-};
-
 // * page router
 const global = {
    currentPage: window.location.pathname,
@@ -43,9 +34,9 @@ const displayUpcomingMovies = async () => {
       .slice(0, 5)
       .map(
          (movie) => `
-         <div class="mySlides grow fade relative">
-            <img class="" 
-               src="https://image.tmdb.org/t/p/original/${
+         <div class="mySlides min-w-full">
+            <img class="min-w-full" 
+               src="https://image.tmdb.org/t/p/w1280/${
                   movie.backdrop_path
                }"                           
             />
@@ -143,6 +134,22 @@ const popularPeopleList = async () => {
       )
       .join("");
 };
+
+// *search movies
+const options = {
+   method: "GET",
+   headers: {
+      accept: "application/json",
+      Authorization:
+         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNTYzZmJlNjQ2ODUzODM1MDlkZTk5ZjRmMWU4ZjdlNSIsInN1YiI6IjY1NGNhNGY2ZDQ2NTM3MDBmZTM0NTBkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1LWXb6rU4E-WvOsJHOjPxr_XEJ6NEOIMUoBWsw86sCg",
+   },
+};
+fetch(
+   "https://api.themoviedb.org/3/search/movie?query=mama&include_adult=false&language=en-US&page=1",
+   options
+)
+   .then((response) => response.json())
+   .then((response) => console.log(response.results));
 
 // * init app
 const initApp = () => {
