@@ -44,7 +44,7 @@
 .feature {
    @apply border 
    border-gray-100
-   h-80 
+   /* h-80  */
    shadow-md
    hover:cursor-pointer
    /* hover:shadow-md */
@@ -85,17 +85,43 @@
    transform hover:scale-95 duration-500 
    flex 
    hover:cursor-pointer
-   /* hover:shadow-lg */
-   /* hover:bg-gray-50 */
    grow;
 }
-
-/* .celeb-1 {
-   @apply ;
-} */
 
 /* footer links */
 .li-api {
    @apply text-sm
    hover:cursor-pointer;
+}
+
+.dot-counter {
+   @apply text-center absolute
+   bottom-0 right-0
+   mr-16
+   mb-8;
+}
+
+.dot {
+   height: 15px;
+   width: 15px;
+   margin: 0 2px;
+
+   background-color: rgb(118, 133, 160);
+   border-radius: 50%;
+   display: inline-block;
+   transition: background-color 0.6s ease;
+}
+
+.active {
+   background-color: #0fb6de;
+}
+
+.slide-title {
+   @apply absolute
+   bottom-0
+   mb-8
+   ml-16
+   text-4xl
+   font-semibold;
+   color: #1cb8d9;
 }

@@ -602,6 +602,10 @@ video {
   margin-left: 3rem;
 }
 
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
 }
@@ -616,6 +620,10 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.grow {
+  flex-grow: 1;
 }
 
 .cursor-pointer {
@@ -644,14 +652,6 @@ video {
 
 .gap-1 {
   gap: 0.25rem;
-}
-
-.rounded {
-  border-radius: 0.25rem;
-}
-
-.rounded-lg {
-  border-radius: 0.5rem;
 }
 
 .border {
@@ -741,7 +741,6 @@ video {
 /* * movies css */
 
 .feature {
-  height: 20rem;
   border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(243 244 246 / var(--tw-border-opacity));
@@ -827,10 +826,6 @@ video {
   cursor: pointer;
 }
 
-/* .celeb-1 {
-   @apply ;
-} */
-
 /* footer links */
 
 .li-api {
@@ -840,6 +835,40 @@ video {
 
 .li-api:hover {
   cursor: pointer;
+}
+
+.dot-counter {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  margin-right: 4rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: rgb(118, 133, 160);
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #0fb6de;
+}
+
+.slide-title {
+  position: absolute;
+  bottom: 0px;
+  margin-bottom: 2rem;
+  margin-left: 4rem;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 600;
+  color: #1cb8d9;
 }
 
 .hover\:cursor-pointer:hover {

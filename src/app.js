@@ -7,6 +7,60 @@ const options = {
    },
 };
 
+// * fetch Upcoming movies
+const upcomingM = [];
+fetch(
+   "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+   options
+)
+   .then((response) => response.json())
+   .then((response) => {
+      console.log(response.results);
+      upcomingM.push(...response.results);
+      showUpcomingM(upcomingM);
+   })
+   .catch((err) => console.error(err));
+
+const showUpcomingM = (target) => {
+   const slideShow = document.querySelector(".slideshow-container");
+   slideShow.innerHTML = target
+      .slice(0, 5)
+      .map(
+         (val) => `        
+                        <div class="mySlides fade grow relative">
+                           <img class=""
+                              src="https://image.tmdb.org/t/p/original/${
+                                 val.backdrop_path
+                              }"                           
+                           />
+                           <div class="slide-title">
+                           <h1>${val.original_title.toUpperCase()}</h1>
+                           </div>
+                        </div>`
+      )
+      .join("");
+
+   // * slideshow
+   let slideIndex = 0;
+   showSlides();
+
+   function showSlides() {
+      const slides = Array.from(document.getElementsByClassName("mySlides"));
+      const dots = Array.from(document.getElementsByClassName("dot"));
+
+      slides.forEach((slide) => (slide.style.display = "none"));
+      dots.map((dot) => (dot.className = dot.className.replace(" active", "")));
+
+      slideIndex = slideIndex >= slides.length ? 0 : slideIndex;
+
+      slides[slideIndex].style.display = "block";
+      dots[slideIndex].className += " active";
+
+      slideIndex++;
+      setTimeout(showSlides, 3000);
+   }
+};
+
 // * fetch top rated movies
 const topMovies = [];
 fetch(
@@ -30,9 +84,6 @@ const showTop5 = (topMovies) => {
          (val) => `        
             <div class="m-c flex flex-col">
                <img class="" src="https://image.tmdb.org/t/p/w300/${val.poster_path}" alt="">
-               <div>
-              
-               </div>
             </div>`
       )
       .join("");
@@ -97,7 +148,7 @@ fetch(
 )
    .then((response) => response.json())
    .then((response) => {
-      console.log(response.results);
+      // console.log(response.results);
       popP.push(...response.results);
       showPop(popP);
    })
