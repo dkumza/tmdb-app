@@ -164,6 +164,7 @@ const initApp = () => {
    switch (global.currentPage) {
       case "/":
       case "/index.html":
+      case "/tmdb-app":
          console.log("Index file");
          displayUpcomingMovies();
          topRatedMovies();
