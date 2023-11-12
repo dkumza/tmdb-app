@@ -695,7 +695,6 @@ video {
 
 .app-wrapper {
   min-height: 100vh;
-  border-width: 1px;
   padding: 2rem;
   /* background-color: #16181e; */
 }
@@ -835,13 +834,15 @@ video {
   right: 0px;
   margin-right: 4rem;
   margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
   text-align: center;
 }
 
 .dot {
   height: 15px;
   width: 15px;
-  margin: 0 2px;
+  margin: 0 3px;
   background-color: rgb(118, 133, 160);
   border-radius: 50%;
   display: inline-block;
@@ -850,6 +851,8 @@ video {
 
 .active {
   background-color: #0fb6de;
+  height: 18px;
+  width: 18px;
 }
 
 .slide-title {

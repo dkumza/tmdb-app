@@ -4,7 +4,6 @@
 
 .app-wrapper {
    @apply min-h-screen
-   border
    p-8;
    /* background-color: #16181e; */
 }
@@ -95,14 +94,15 @@
    @apply text-center absolute
    bottom-0 right-0
    mr-16
-   mb-8;
+   mb-8
+   flex
+   items-center;
 }
 
 .dot {
    height: 15px;
    width: 15px;
-   margin: 0 2px;
-
+   margin: 0 3px;
    background-color: rgb(118, 133, 160);
    border-radius: 50%;
    display: inline-block;
@@ -111,6 +111,8 @@
 
 .active {
    background-color: #0fb6de;
+   height: 18px;
+   width: 18px;
 }
 
 .slide-title {

@@ -7,6 +7,33 @@ const options = {
    },
 };
 
+// * fetch movie data from api
+const fetchAPIData = async (endpoint) => {
+   const API_URL = "https://api.themoviedb.org/3/movie/";
+   const options = {
+      method: "GET",
+      headers: {
+         accept: "application/json",
+         Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNTYzZmJlNjQ2ODUzODM1MDlkZTk5ZjRmMWU4ZjdlNSIsInN1YiI6IjY1NGNhNGY2ZDQ2NTM3MDBmZTM0NTBkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1LWXb6rU4E-WvOsJHOjPxr_XEJ6NEOIMUoBWsw86sCg",
+      },
+   };
+
+   const response = await fetch(
+      `${API_URL}${endpoint}?language=en-US&page=1`,
+      options
+   );
+
+   const data = await response.json();
+   return data;
+};
+const displayUpcomingMovies = async () => {
+   const { results } = await fetchAPIData("upcoming");
+   console.log(results);
+};
+
+displayUpcomingMovies();
+
 // * fetch Upcoming movies
 const upcomingM = [];
 fetch(
@@ -15,7 +42,7 @@ fetch(
 )
    .then((response) => response.json())
    .then((response) => {
-      console.log(response.results);
+      // console.log(response.results);
       upcomingM.push(...response.results);
       showUpcomingM(upcomingM);
    })
@@ -24,7 +51,7 @@ fetch(
 const showUpcomingM = (target) => {
    const slideShow = document.querySelector(".slideshow-container");
    slideShow.innerHTML = target
-      .slice(0, 5)
+      .slice(0, 10)
       .map(
          (val) => `        
                         <div class="mySlides fade grow relative flex ">
@@ -143,7 +170,7 @@ fetch(
    .then((response) => response.json())
    .then((response) => {
       nowPlayingMovies.push(...response.results);
-      console.log(nowPlayingMovies);
+      // console.log(nowPlayingMovies);
       showLatest3Trailers(nowPlayingMovies, 3);
    })
    .catch((err) => console.error(err));
