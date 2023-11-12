@@ -37,7 +37,7 @@ const fetchAPIData = async (endpoint) => {
 // * fetch Upcoming movies - 20 by default
 const displayUpcomingMovies = async () => {
    const { results } = await fetchAPIData("upcoming");
-   console.log(results);
+   // console.log(results);
    const slideShow = document.querySelector(".slideshow-container");
    slideShow.innerHTML = results
       // * show only 5 movies
@@ -101,7 +101,6 @@ const nowPlayingMovies = async () => {
 
 // * from latest movies fetch takes 3 movies ID's and fetches Youtube videos
 const nowPlayingYoutubeVideos = async (target, num) => {
-   // console.log(target);
    const trailersWrap = document.querySelector(".trailers-wrap");
    // * gets 3 ID's from nowPlayingMovies function
    const [...getId] = target.map((val) => val.id).splice(0, num);
@@ -110,7 +109,6 @@ const nowPlayingYoutubeVideos = async (target, num) => {
    await Promise.all(
       getId.map(async (val, index) => {
          const title = getName[index];
-
          const result = await fetchAPIData(`${val}/videos`);
          const trailer = result.results.find((val) => val.type === "Trailer");
 
@@ -129,61 +127,8 @@ const nowPlayingYoutubeVideos = async (target, num) => {
    );
 };
 
-const showLatest3Trailers = (arr, num) => {
-   const trailersWrap = document.querySelector(".trailers-wrap");
-   // * to shuffle values
-   // const shuffled = [...arr].sort(() => 0.5 - Math.random()).slice(0, num);
-
-   const [...getId] = arr.map((val) => val.id).splice(0, num);
-   // * getName should be same length as getId array
-   const [...getName] = arr.map((val) => val.title).splice(0, num);
-   getId.map((val, index) => {
-      // * takes title by index of getId array from getName array
-      const title = getName[index];
-      fetch(
-         `https://api.themoviedb.org/3/movie/${val}/videos?language=en-US`,
-         options
-      )
-         .then((response) => response.json())
-         .then((response) => {
-            const result = response.results.find((val) => {
-               return val.type === "Trailer";
-            });
-
-            // console.log(title);
-            trailersWrap.innerHTML += `<div class="m-c movies-1">
-                                          <iframe
-                                          class="trailer-wrap"
-                                          src="https://www.youtube.com/embed/${result.key}?si=wU4EgryzidVHRpfn&controls=0"
-                                          title="YouTube video player"
-                                          frameborder="0"
-                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                          allowfullscreen>
-                                          </iframe>
-                                          <h1> ${title}</h1>
-                                    </div>`;
-         })
-
-         .catch((err) => console.error(err));
-   });
-
-   // const videoTitle = document.querySelector(".movies-1");
-};
-
-fetch(
-   "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
-   options
-)
-   .then((response) => response.json())
-   .then((response) => {
-      // console.log(response.results);
-      // nowPlayingMovies.push(...response.results);
-      // console.log(nowPlayingMovies);
-      // showLatest3Trailers(nowPlayingMovies, 3);
-   })
-   .catch((err) => console.error(err));
-
 // * fetch top rated people
+
 const popP = [];
 fetch(
    "https://api.themoviedb.org/3/person/popular?language=en-US&page=1",
