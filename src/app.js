@@ -28,9 +28,8 @@ const showTop5 = (topMovies) => {
    showToDom.innerHTML = topMovies
       .slice(0, 5)
       .map(
-         (val) => `
-        
-            <div class="m-c transition transform hover:scale-95 duration-500 flex justify-center">
+         (val) => `        
+            <div class="m-c">
                <img class="" src="https://image.tmdb.org/t/p/w300/${val.poster_path}" alt="">
             </div>`
       )
