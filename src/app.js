@@ -7,8 +7,14 @@ const options = {
    },
 };
 
+// * page router
+const global = {
+   currentPage: window.location.pathname,
+};
+
 // * fetch movie data from api
 const fetchAPIData = async (endpoint) => {
+   // * select movie category
    const API_URL = "https://api.themoviedb.org/3/movie/";
    const options = {
       method: "GET",
@@ -27,50 +33,32 @@ const fetchAPIData = async (endpoint) => {
    const data = await response.json();
    return data;
 };
+
+// * fetch Upcoming movies - 20 by default
 const displayUpcomingMovies = async () => {
    const { results } = await fetchAPIData("upcoming");
    console.log(results);
-};
-
-displayUpcomingMovies();
-
-// * fetch Upcoming movies
-const upcomingM = [];
-fetch(
-   "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
-   options
-)
-   .then((response) => response.json())
-   .then((response) => {
-      // console.log(response.results);
-      upcomingM.push(...response.results);
-      showUpcomingM(upcomingM);
-   })
-   .catch((err) => console.error(err));
-
-const showUpcomingM = (target) => {
    const slideShow = document.querySelector(".slideshow-container");
-   slideShow.innerHTML = target
-      .slice(0, 10)
+   slideShow.innerHTML = results
+      // * show only 5 movies
+      .slice(0, 5)
       .map(
-         (val) => `        
-                        <div class="mySlides fade grow relative flex ">
-                           <img class=""
-                              src="https://image.tmdb.org/t/p/original/${
-                                 val.backdrop_path
-                              }"                           
-                           />
-                           <div class="slide-title">
-                           <h1>${val.original_title.toUpperCase()}</h1>
-                           </div>
-                        </div>`
+         (movie) => `
+         <div class="mySlides grow fade relative">
+            <img class="" 
+               src="https://image.tmdb.org/t/p/original/${
+                  movie.backdrop_path
+               }"                           
+            />
+            <div class="slide-title">
+               <h1>${movie.original_title.toUpperCase()}</h1>
+            </div>
+         </div>`
       )
       .join("");
 
    // * slideshow
    let slideIndex = 0;
-   showSlides();
-
    function showSlides() {
       const slides = Array.from(document.getElementsByClassName("mySlides"));
       const dots = Array.from(document.getElementsByClassName("dot"));
@@ -86,26 +74,15 @@ const showUpcomingM = (target) => {
       slideIndex++;
       setTimeout(showSlides, 3000);
    }
+   // *start slide show
+   showSlides();
 };
 
 // * fetch top rated movies
-const topMovies = [];
-fetch(
-   "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
-   options
-)
-   .then((response) => response.json())
-   .then((response) => {
-      // console.log(response.results);
-      topMovies.push(...response.results);
-      showTop5(topMovies);
-   })
-   .catch((err) => console.error(err));
-
-const showTop5 = (topMovies) => {
+const topRatedMovies = async () => {
+   const { results } = await fetchAPIData("top_rated");
    const showToDom = document.querySelector(".latest-cont");
-   // console.log(topMovies);
-   showToDom.innerHTML = topMovies
+   showToDom.innerHTML = results
       .slice(0, 5)
       .map(
          (val) => `        
@@ -114,13 +91,43 @@ const showTop5 = (topMovies) => {
             </div>`
       )
       .join("");
-
-   // <h1 class="font-semibold pt-2 pl-1">${val.title}</h1>
-   // <h1 class=" text-sm pt-2 pl-1">${val.release_date}</h1>
 };
 
 // * fetch latest movies
-const nowPlayingMovies = [];
+const nowPlayingMovies = async () => {
+   const { results } = await fetchAPIData("now_playing");
+   nowPlayingYoutubeVideos(results, 3);
+};
+
+// * from latest movies fetch takes 3 movies ID's and fetches Youtube videos
+const nowPlayingYoutubeVideos = async (target, num) => {
+   // console.log(target);
+   const trailersWrap = document.querySelector(".trailers-wrap");
+   // * gets 3 ID's from nowPlayingMovies function
+   const [...getId] = target.map((val) => val.id).splice(0, num);
+   const [...getName] = target.map((val) => val.title).splice(0, num);
+   // * print to DOM 3 videos and titles, by getting from nowPlaying function
+   await Promise.all(
+      getId.map(async (val, index) => {
+         const title = getName[index];
+
+         const result = await fetchAPIData(`${val}/videos`);
+         const trailer = result.results.find((val) => val.type === "Trailer");
+
+         trailersWrap.innerHTML += `<div class="m-c movies-1">
+          <iframe
+            class="trailer-wrap"
+            src="https://www.youtube.com/embed/${trailer.key}?si=wU4EgryzidVHRpfn&controls=0"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+          <h1> ${title}</h1>
+        </div>`;
+      })
+   );
+};
 
 const showLatest3Trailers = (arr, num) => {
    const trailersWrap = document.querySelector(".trailers-wrap");
@@ -169,9 +176,10 @@ fetch(
 )
    .then((response) => response.json())
    .then((response) => {
-      nowPlayingMovies.push(...response.results);
+      // console.log(response.results);
+      // nowPlayingMovies.push(...response.results);
       // console.log(nowPlayingMovies);
-      showLatest3Trailers(nowPlayingMovies, 3);
+      // showLatest3Trailers(nowPlayingMovies, 3);
    })
    .catch((err) => console.error(err));
 
@@ -205,3 +213,21 @@ const showPop = (target) => {
       )
       .join("");
 };
+
+// * init app
+const initApp = () => {
+   switch (global.currentPage) {
+      case "/":
+      case "/index.html":
+         console.log("Index file");
+         displayUpcomingMovies();
+         topRatedMovies();
+         nowPlayingMovies();
+         break;
+      case "/search.html":
+         console.log("Search file");
+         break;
+   }
+};
+
+document.addEventListener("DOMContentLoaded", initApp);
