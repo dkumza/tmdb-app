@@ -15,7 +15,7 @@ const global = {
 // * fetch movie data from api
 const fetchAPIData = async (endpoint) => {
    // * select movie category
-   const API_URL = "https://api.themoviedb.org/3/movie/";
+   const API_URL = "https://api.themoviedb.org/3/";
    const options = {
       method: "GET",
       headers: {
@@ -36,8 +36,7 @@ const fetchAPIData = async (endpoint) => {
 
 // * fetch Upcoming movies - 20 by default
 const displayUpcomingMovies = async () => {
-   const { results } = await fetchAPIData("upcoming");
-   // console.log(results);
+   const { results } = await fetchAPIData(`movie/upcoming`);
    const slideShow = document.querySelector(".slideshow-container");
    slideShow.innerHTML = results
       // * show only 5 movies
@@ -80,7 +79,7 @@ const displayUpcomingMovies = async () => {
 
 // * fetch top rated movies
 const topRatedMovies = async () => {
-   const { results } = await fetchAPIData("top_rated");
+   const { results } = await fetchAPIData(`movie/top_rated`);
    const showToDom = document.querySelector(".latest-cont");
    showToDom.innerHTML = results
       .slice(0, 5)
@@ -95,7 +94,7 @@ const topRatedMovies = async () => {
 
 // * fetch latest movies
 const nowPlayingMovies = async () => {
-   const { results } = await fetchAPIData("now_playing");
+   const { results } = await fetchAPIData(`movie/now_playing`);
    nowPlayingYoutubeVideos(results, 3);
 };
 
@@ -109,7 +108,7 @@ const nowPlayingYoutubeVideos = async (target, num) => {
    await Promise.all(
       getId.map(async (val, index) => {
          const title = getName[index];
-         const result = await fetchAPIData(`${val}/videos`);
+         const result = await fetchAPIData(`movie/${val}/videos`);
          const trailer = result.results.find((val) => val.type === "Trailer");
 
          trailersWrap.innerHTML += `<div class="m-c movies-1">
@@ -128,33 +127,19 @@ const nowPlayingYoutubeVideos = async (target, num) => {
 };
 
 // * fetch top rated people
-
-const popP = [];
-fetch(
-   "https://api.themoviedb.org/3/person/popular?language=en-US&page=1",
-   options
-)
-   .then((response) => response.json())
-   .then((response) => {
-      // console.log(response.results);
-      popP.push(...response.results);
-      showPop(popP);
-   })
-   .catch((err) => console.error(err));
-
-const showPop = (target) => {
-   const showP = document.querySelector(".celeb-wrap");
-   //    console.log(topMovies);
-   showP.innerHTML = target
+const popularPeopleList = async () => {
+   const { results } = await fetchAPIData(`person/popular`);
+   const showPopularPeopleList = document.querySelector(".celeb-wrap");
+   showPopularPeopleList.innerHTML = results
       .slice(0, 10)
       .map(
          (val) => `        
-            <div class="m-c celeb-1 flex flex-col">
-               <img class="" src="https://image.tmdb.org/t/p/w300/${val.profile_path}" alt="Photo of ${val.name}">
-               <div>
-                  <h1 class="">${val.name}</h1>
-               </div>
-            </div>`
+         <div class="m-c celeb-1 flex flex-col">
+            <img class="" src="https://image.tmdb.org/t/p/w300/${val.profile_path}" alt="Photo of ${val.name}">
+            <div>
+               <h1 class="">${val.name}</h1>
+            </div>
+         </div>`
       )
       .join("");
 };
@@ -169,6 +154,7 @@ const initApp = () => {
          displayUpcomingMovies();
          topRatedMovies();
          nowPlayingMovies();
+         popularPeopleList();
          break;
       case "/search.html":
          console.log("Search file");
