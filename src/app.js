@@ -27,7 +27,7 @@ const showUpcomingM = (target) => {
       .slice(0, 5)
       .map(
          (val) => `        
-                        <div class="mySlides fade grow relative">
+                        <div class="mySlides fade grow relative flex ">
                            <img class=""
                               src="https://image.tmdb.org/t/p/original/${
                                  val.backdrop_path
@@ -101,18 +101,22 @@ const showLatest3Trailers = (arr, num) => {
    // const shuffled = [...arr].sort(() => 0.5 - Math.random()).slice(0, num);
 
    const [...getId] = arr.map((val) => val.id).splice(0, num);
-   getId.map((val) => {
+   // * getName should be same length as getId array
+   const [...getName] = arr.map((val) => val.title).splice(0, num);
+   getId.map((val, index) => {
+      // * takes title by index of getId array from getName array
+      const title = getName[index];
       fetch(
          `https://api.themoviedb.org/3/movie/${val}/videos?language=en-US`,
          options
       )
          .then((response) => response.json())
          .then((response) => {
-            // console.log(response.results);
             const result = response.results.find((val) => {
                return val.type === "Trailer";
             });
-            // console.log(result.key);
+
+            // console.log(title);
             trailersWrap.innerHTML += `<div class="m-c movies-1">
                                           <iframe
                                           class="trailer-wrap"
@@ -120,13 +124,16 @@ const showLatest3Trailers = (arr, num) => {
                                           title="YouTube video player"
                                           frameborder="0"
                                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                          allowfullscreen
-                                          ></iframe>
+                                          allowfullscreen>
+                                          </iframe>
+                                          <h1> ${title}</h1>
                                     </div>`;
          })
 
          .catch((err) => console.error(err));
    });
+
+   // const videoTitle = document.querySelector(".movies-1");
 };
 
 fetch(
@@ -136,7 +143,8 @@ fetch(
    .then((response) => response.json())
    .then((response) => {
       nowPlayingMovies.push(...response.results);
-      // showLatest3Trailers(nowPlayingMovies, 3);
+      console.log(nowPlayingMovies);
+      showLatest3Trailers(nowPlayingMovies, 3);
    })
    .catch((err) => console.error(err));
 
@@ -164,7 +172,7 @@ const showPop = (target) => {
             <div class="m-c celeb-1 flex flex-col">
                <img class="" src="https://image.tmdb.org/t/p/w300/${val.profile_path}" alt="Photo of ${val.name}">
                <div>
-                  <h1 class="font-semibold">${val.name}</h1>
+                  <h1 class="">${val.name}</h1>
                </div>
             </div>`
       )
