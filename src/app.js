@@ -16,13 +16,21 @@ const fetchAPIData = async (endpoint) => {
       },
    };
 
+   // const endOfLink = "&page=1";
    const response = await fetch(
-      `${API_URL}${endpoint}?language=en-US&page=1`,
+      `${API_URL}${endpoint}?language=en-US`,
       options
    );
 
    const data = await response.json();
+   // console.log(data);
    return data;
+};
+
+// * fetch movie details
+const displayDetailsOfMovie = async (id) => {
+   return (movieDetail = await fetchAPIData(`movie/${id}`));
+   // console.log(movieDetail);
 };
 
 // * fetch Upcoming movies - 20 by default
@@ -165,6 +173,7 @@ displaySearchToDOM = async () => {
    const { results, total_results, page, total_pages } = await fetchAPIData(
       `search/movie?query=${value}&include_adult=false`
    );
+
    console.log(results, total_results, page, total_pages);
 
    if (results.length === 0) {
@@ -172,21 +181,38 @@ displaySearchToDOM = async () => {
       return;
    }
 
+   // * get movie ids for searched movies detail page
+   await Promise.all(
+      results.map(async (val) => {
+         await displayDetailsOfMovie(val.id);
+      })
+   );
+
    const displaySearchInfo = document.querySelector(".search-head");
    const displaySearchAt = document.querySelector(".search-res");
    displaySearchAt.innerHTML = results
       .map(
-         (val) => `    
-         <div class="m-c flex flex-col">
-            <img class="" src="https://image.tmdb.org/t/p/w300/${val.poster_path}" alt="">
-         </div>`
+         (val) => `
+         <a id="${val.id}"  href="#">
+            <div class="m-c flex flex-col">
+            ${
+               val.poster_path
+                  ? `<img class="" src="https://image.tmdb.org/t/p/w300/${val.poster_path}"
+                           alt=""></img>`
+                  : `<img class="" src="../images/no-image.png"
+                     alt=""></img>`
+            }
+            </div>
+         </a>`
       )
       .join("");
 
    displaySearchInfo.innerHTML = `
-               <h2 class="">${results.length} of ${total_results} Results for ${value}</h2>`;
+               <h2 class="my-4 font-semibold text-xl mt-8">${
+                  results.length
+               } OF ${total_results} RESULTS FOR ${value.toUpperCase()}</h2>`;
 
-   // console.log(results);
+   console.log(results);
 };
 
 // * init app
@@ -202,8 +228,8 @@ const initApp = () => {
          popularPeopleList();
          break;
       case "/search.html":
+      case "/tmdb-app/search.html":
          console.log("Search file");
-         // searchMovies();
          displaySearchToDOM();
          break;
    }
