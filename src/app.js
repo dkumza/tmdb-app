@@ -27,14 +27,8 @@ const fetchAPIData = async (endpoint) => {
    return data;
 };
 
-// // * fetch movie details
-// const displayDetailsOfMovie = async (id) => {
-//    movieDetail = await fetchAPIData(`movie/${id}`);
-//    console.log(movieDetail);
-// };
-
 // *
-const showMoreInfo = (items) => {
+const getMovieID = (items) => {
    items.forEach((item) => {
       item.addEventListener("click", (e) => {
          const selectedID = e.target.id;
@@ -43,15 +37,19 @@ const showMoreInfo = (items) => {
    });
 };
 
-const printTaramBaram = () => {
+const showMoreInfoToDOM = async () => {
    const urlParams = new URLSearchParams(window.location.search);
    const selectedID = urlParams.get("targetID");
    console.log(selectedID);
+   // * fetch movie details
+   const results = await fetchAPIData(`movie/${selectedID}`);
+   console.log(results);
 };
 
 // * fetch Upcoming movies - 20 by default
 const displayUpcomingMovies = async () => {
    const { results } = await fetchAPIData(`movie/upcoming`);
+   console.log(results);
    const slideShow = document.querySelector(".slideshow-container");
    slideShow.innerHTML = results
       // * show only 5 movies
@@ -59,7 +57,7 @@ const displayUpcomingMovies = async () => {
       .map(
          (movie) => `
          <div class="mySlides min-w-full">
-            <img class="min-w-full" 
+            <img id="${movie.id}" class="select-me min-w-full" 
                src="https://image.tmdb.org/t/p/w1280/${
                   movie.backdrop_path
                }"                           
@@ -90,6 +88,10 @@ const displayUpcomingMovies = async () => {
    }
    // *start slide show
    showSlides();
+
+   // * add event on click of picture
+   const selectedItem = document.querySelectorAll(".select-me");
+   getMovieID(selectedItem);
 };
 
 // * fetch top rated movies
@@ -101,10 +103,14 @@ const topRatedMovies = async () => {
       .map(
          (val) => `        
             <div class="m-c flex flex-col">
-               <img class="" src="https://image.tmdb.org/t/p/w300/${val.poster_path}" alt="">
+               <img id="${val.id}" class="select-me" src="https://image.tmdb.org/t/p/w300/${val.poster_path}" alt="">
             </div>`
       )
       .join("");
+
+   // * add event on click of picture
+   const selectedItem = document.querySelectorAll(".select-me");
+   getMovieID(selectedItem);
 };
 
 // * fetch latest movies
@@ -197,13 +203,6 @@ displaySearchToDOM = async () => {
       return;
    }
 
-   // // * get movie ids for searched movies detail page
-   // await Promise.all(
-   //    results.map(async (val) => {
-   //       await displayDetailsOfMovie(val.id);
-   //    })
-   // );
-
    const displaySearchInfo = document.querySelector(".search-head");
    const displaySearchAt = document.querySelector(".search-res");
    displaySearchAt.innerHTML = results
@@ -213,7 +212,7 @@ displaySearchToDOM = async () => {
             <div  class="search-item m-c flex flex-col">
             ${
                val.poster_path
-                  ? `<img id="${val.id}" class="" src="https://image.tmdb.org/t/p/w300/${val.poster_path}"
+                  ? `<img id="${val.id}" class="select-me" src="https://image.tmdb.org/t/p/w300/${val.poster_path}"
                            alt=""></img>`
                   : `<img class="" src="../images/no-image.png"
                      alt=""></img>`
@@ -230,10 +229,8 @@ displaySearchToDOM = async () => {
                } OF ${total_results} RESULTS FOR ${value.toUpperCase()}</h2>`;
 
    // * add event on click of picture
-   const searchItem = document.querySelectorAll(".search-item");
-   showMoreInfo(searchItem);
-
-   // console.log(results);
+   const selectedItem = document.querySelectorAll(".select-me");
+   getMovieID(selectedItem);
 };
 
 // * init app
@@ -257,7 +254,7 @@ const initApp = () => {
       case "/more-info.html":
       case "/tmdb-app/more-info.html":
          console.log("More-info file");
-         printTaramBaram();
+         showMoreInfoToDOM();
          break;
    }
 };
