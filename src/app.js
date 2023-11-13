@@ -27,10 +27,26 @@ const fetchAPIData = async (endpoint) => {
    return data;
 };
 
-// * fetch movie details
-const displayDetailsOfMovie = async (id) => {
-   return (movieDetail = await fetchAPIData(`movie/${id}`));
-   // console.log(movieDetail);
+// // * fetch movie details
+// const displayDetailsOfMovie = async (id) => {
+//    movieDetail = await fetchAPIData(`movie/${id}`);
+//    console.log(movieDetail);
+// };
+
+// *
+const showMoreInfo = (items) => {
+   items.forEach((item) => {
+      item.addEventListener("click", (e) => {
+         const selectedID = e.target.id;
+         window.location.href = `more-info.html?targetID=${selectedID}`;
+      });
+   });
+};
+
+const printTaramBaram = () => {
+   const urlParams = new URLSearchParams(window.location.search);
+   const selectedID = urlParams.get("targetID");
+   console.log(selectedID);
 };
 
 // * fetch Upcoming movies - 20 by default
@@ -169,7 +185,7 @@ searchForm.addEventListener("submit", (e) => {
 displaySearchToDOM = async () => {
    const urlParams = new URLSearchParams(window.location.search);
    const value = urlParams.get("value");
-   // console.log(value);
+
    const { results, total_results, page, total_pages } = await fetchAPIData(
       `search/movie?query=${value}&include_adult=false`
    );
@@ -181,38 +197,43 @@ displaySearchToDOM = async () => {
       return;
    }
 
-   // * get movie ids for searched movies detail page
-   await Promise.all(
-      results.map(async (val) => {
-         await displayDetailsOfMovie(val.id);
-      })
-   );
+   // // * get movie ids for searched movies detail page
+   // await Promise.all(
+   //    results.map(async (val) => {
+   //       await displayDetailsOfMovie(val.id);
+   //    })
+   // );
 
    const displaySearchInfo = document.querySelector(".search-head");
    const displaySearchAt = document.querySelector(".search-res");
    displaySearchAt.innerHTML = results
       .map(
          (val) => `
-         <a id="${val.id}"  href="#">
-            <div class="m-c flex flex-col">
+      
+            <div  class="search-item m-c flex flex-col">
             ${
                val.poster_path
-                  ? `<img class="" src="https://image.tmdb.org/t/p/w300/${val.poster_path}"
+                  ? `<img id="${val.id}" class="" src="https://image.tmdb.org/t/p/w300/${val.poster_path}"
                            alt=""></img>`
                   : `<img class="" src="../images/no-image.png"
                      alt=""></img>`
             }
             </div>
-         </a>`
+         `
       )
       .join("");
 
+   // * show search info
    displaySearchInfo.innerHTML = `
                <h2 class="my-4 font-semibold text-xl mt-8">${
                   results.length
                } OF ${total_results} RESULTS FOR ${value.toUpperCase()}</h2>`;
 
-   console.log(results);
+   // * add event on click of picture
+   const searchItem = document.querySelectorAll(".search-item");
+   showMoreInfo(searchItem);
+
+   // console.log(results);
 };
 
 // * init app
@@ -231,6 +252,12 @@ const initApp = () => {
       case "/tmdb-app/search.html":
          console.log("Search file");
          displaySearchToDOM();
+         break;
+
+      case "/more-info.html":
+      case "/tmdb-app/more-info.html":
+         console.log("More-info file");
+         printTaramBaram();
          break;
    }
 };

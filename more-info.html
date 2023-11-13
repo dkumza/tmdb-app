@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Movies DB</title>
+      <link
+         rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      />
+      <link href="./dist/output.css" rel="stylesheet" />
+      <script src="./src/app.js" defer></script>
+   </head>
+   <body>
+      <div class="container mx-auto">
+         <div class="app-wrapper flex flex-col">
+            <div class="top-wrap flex p-2 items-center">
+               <div class="logo-wrap">
+                  <a href="./index.html">
+                     <img
+                        class="img-logo hover:cursor-pointer"
+                        src="./images/alt logo short.svg"
+                        alt="the movie database api logo"
+                     />
+                  </a>
+               </div>
+               <div class="menu pl-12 text-xl hover:cursor-pointer">
+                  <a href="./index.html">Home</a>
+               </div>
+               <div class="search-wrap w-full">
+                  <form action="#" class="form-wrap w-full flex justify-end">
+                     <div class="search-field relative">
+                        <input
+                           type="text"
+                           class="search-value"
+                           placeholder="Search for movie..."
+                        />
+                        <div
+                           class="icon-search absolute cursor-pointer right-0 flex justify-center items-center align-middle h-full bg-gray-100 border"
+                        >
+                           <button class="h-full mr-1" type="submit">
+                              <a href="#search">
+                                 <i
+                                    class="px-4 py-2 bg-gray-100 h-full not-italic my-1 tracking-wider text-gray-500"
+                                 >
+                                    Search</i
+                                 >
+                              </a>
+                           </button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+
+            <content class="search-res-wrapp">
+               <div class="search-head flex justify-center"></div>
+               <div class="search-res more-info-wrap"></div>
+               <!-- <div class="m-c flex flex-col">
+                  <img
+                     class=""
+                     src="https://image.tmdb.org/t/p/w300/${val.poster_path}"
+                     alt=""
+                  />
+               </div> -->
+            </content>
+
+            <footer class="foot-wrap flex justify-center items-center">
+               <div class="footer-logo w-36">
+                  <a
+                     href="https://developer.themoviedb.org/docs"
+                     target="_blank"
+                  >
+                     <img
+                        class="img-logo hover:cursor-pointer"
+                        src="./images/logo.svg"
+                        alt="the movie database api logo"
+                     />
+                  </a>
+               </div>
+               <div class="footer-about ml-12 w-full">
+                  <div class="about-api">
+                     <h1 class="font-semibold mb-2">MORE ABOUT API</h1>
+                     <ul class="flex flex-col gap-1">
+                        <li class="li-api">About TMDB</li>
+                        <li class="li-api">TMDB API</li>
+                        <li class="li-api">TMDB Forums</li>
+                        <li class="li-api">API System Status</li>
+                     </ul>
+                  </div>
+               </div>
+            </footer>
+         </div>
+      </div>
+   </body>
+</html>
