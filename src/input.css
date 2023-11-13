@@ -14,20 +14,22 @@
 
 /* form */
 .search-wrap {
-   @apply flex   
+   @apply flex
    items-start;
 }
 .search-field {
    @apply flex 
-   justify-between 
+   justify-center
+   /* justify-between  */
+   align-middle
+   items-center
    w-3/4
    shadow-sm;
 }
 
-.search {
+.search-value {
    @apply w-full
    border
-   rounded-lg
    py-2 
    px-6;
 }

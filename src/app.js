@@ -144,12 +144,42 @@ const options = {
          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNTYzZmJlNjQ2ODUzODM1MDlkZTk5ZjRmMWU4ZjdlNSIsInN1YiI6IjY1NGNhNGY2ZDQ2NTM3MDBmZTM0NTBkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1LWXb6rU4E-WvOsJHOjPxr_XEJ6NEOIMUoBWsw86sCg",
    },
 };
-fetch(
-   "https://api.themoviedb.org/3/search/movie?query=mama&include_adult=false&language=en-US&page=1",
-   options
-)
-   .then((response) => response.json())
-   .then((response) => console.log(response.results));
+
+// * search form eventlistener
+const searchForm = document.querySelector(".form-wrap");
+searchForm.addEventListener("submit", (e) => {
+   e.preventDefault();
+   const searchValue = document.querySelector(".search-value").value;
+   if (searchValue === "") {
+      alert(`Can't search for empty string`);
+      return;
+   }
+   window.location.href = `search.html?value=${searchValue}`;
+});
+
+// * takes value from input field - fetches data and displays at DOM
+displaySearchToDOM = async () => {
+   const urlParams = new URLSearchParams(window.location.search);
+   const value = urlParams.get("value");
+   console.log(value);
+   const { results, total_results, page, total_pages } = await fetchAPIData(
+      `search/movie?query=${value}&include_adult=false`
+   );
+   console.log(results, total_results, page, total_pages);
+
+   // global.search.page = page;
+   // global.search.totalPages = total_pages;
+   // global.search.totalResults = total_results;
+
+   if (results.length === 0) {
+      alert("no matches found");
+      return;
+   }
+
+   const displaySearchAt = document.querySelector(".search-wrap");
+   // displaySearchAt.innerHTML = results;
+   // * show only 5 movies
+};
 
 // * init app
 const initApp = () => {
@@ -165,6 +195,8 @@ const initApp = () => {
          break;
       case "/search.html":
          console.log("Search file");
+         // searchMovies();
+         displaySearchToDOM();
          break;
    }
 };
