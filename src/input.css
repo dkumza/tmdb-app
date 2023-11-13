@@ -58,6 +58,11 @@
    lg:flex-nowrap;
 }
 
+.search-res {
+   @apply flex gap-1
+   flex-wrap;
+}
+
 .trailer-wrap {
    @apply object-contain
    min-w-full

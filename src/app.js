@@ -161,24 +161,32 @@ searchForm.addEventListener("submit", (e) => {
 displaySearchToDOM = async () => {
    const urlParams = new URLSearchParams(window.location.search);
    const value = urlParams.get("value");
-   console.log(value);
+   // console.log(value);
    const { results, total_results, page, total_pages } = await fetchAPIData(
       `search/movie?query=${value}&include_adult=false`
    );
    console.log(results, total_results, page, total_pages);
-
-   // global.search.page = page;
-   // global.search.totalPages = total_pages;
-   // global.search.totalResults = total_results;
 
    if (results.length === 0) {
       alert("no matches found");
       return;
    }
 
-   const displaySearchAt = document.querySelector(".search-wrap");
-   // displaySearchAt.innerHTML = results;
-   // * show only 5 movies
+   const displaySearchInfo = document.querySelector(".search-head");
+   const displaySearchAt = document.querySelector(".search-res");
+   displaySearchAt.innerHTML = results
+      .map(
+         (val) => `    
+         <div class="m-c flex flex-col">
+            <img class="" src="https://image.tmdb.org/t/p/w300/${val.poster_path}" alt="">
+         </div>`
+      )
+      .join("");
+
+   displaySearchInfo.innerHTML = `
+               <h2 class="">${results.length} of ${total_results} Results for ${value}</h2>`;
+
+   // console.log(results);
 };
 
 // * init app

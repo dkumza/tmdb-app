@@ -595,6 +595,11 @@ video {
   margin-bottom: 2rem;
 }
 
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -625,6 +630,11 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .min-w-full {
@@ -693,10 +703,6 @@ video {
 
 .pl-12 {
   padding-left: 3rem;
-}
-
-.text-center {
-  text-align: center;
 }
 
 .align-middle {
@@ -791,6 +797,12 @@ video {
   .latest-cont {
     flex-wrap: nowrap;
   }
+}
+
+.search-res {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 .trailer-wrap {
