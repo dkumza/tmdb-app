@@ -3,6 +3,19 @@ const global = {
    currentPage: window.location.pathname,
 };
 
+let pathPrefix = "";
+if (window.location.hostname === "github.io") {
+   pathPrefix = "/tmdb-app";
+}
+
+document.querySelectorAll("a[href]").forEach((a) => {
+   a.href = pathPrefix + a.getAttribute("href");
+});
+
+document.querySelectorAll("img[src]").forEach((img) => {
+   img.src = pathPrefix + img.getAttribute("src");
+});
+
 // * fetch movie data from api
 const fetchAPIData = async (endpoint) => {
    // * select movie category
