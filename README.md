@@ -17,6 +17,7 @@ To run this project, you'll need to take the following steps:
 
 ```bash
 # Clone this repository
+$ git clone git@github.com:dkumza/tmdb-app.git
 
 # Go into the repository
 $ cd tmdb-app
