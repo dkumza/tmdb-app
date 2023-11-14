@@ -9,19 +9,11 @@ if (window.location.hostname === "github.io") {
 }
 
 document.querySelectorAll("a[href]").forEach((a) => {
-   let url = new URL(
-      a.getAttribute("href"),
-      window.location.origin + pathPrefix
-   );
-   a.href = url.href;
+   a.href = pathPrefix + a.getAttribute("href");
 });
 
 document.querySelectorAll("img[src]").forEach((img) => {
-   let url = new URL(
-      img.getAttribute("src"),
-      window.location.origin + pathPrefix
-   );
-   img.src = url.href;
+   img.src = pathPrefix + img.getAttribute("src");
 });
 
 // * fetch movie data from api
