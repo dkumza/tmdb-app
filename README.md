@@ -26,4 +26,8 @@ $ cd tmdb-app
 $ npm install
 
 # If you wanna play around with styles
-$ npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch
+$ npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch```
+
+## TODO
+
+- [ ] Implement pagination for the search page
