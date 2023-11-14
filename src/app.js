@@ -23,7 +23,6 @@ const fetchAPIData = async (endpoint) => {
    );
 
    const data = await response.json();
-   // console.log(data);
    return data;
 };
 
@@ -40,11 +39,8 @@ const getMovieID = (items) => {
 const showMoreInfoToDOM = async () => {
    const urlParams = new URLSearchParams(window.location.search);
    const selectedID = urlParams.get("targetID");
-   console.log(selectedID);
    // * fetch movie details
    const result = await fetchAPIData(`movie/${selectedID}`);
-   console.log(result);
-
    const displayInfo = document.querySelector(".more-info-wrap");
    displayInfo.innerHTML = `
          <div class="bg-wrap"
@@ -230,8 +226,6 @@ displaySearchToDOM = async () => {
    const { results, total_results, page, total_pages } = await fetchAPIData(
       `search/movie?query=${value}&include_adult=false`
    );
-
-   console.log(results, total_results, page, total_pages);
 
    if (results.length === 0) {
       alert("no matches found");
