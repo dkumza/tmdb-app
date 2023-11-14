@@ -268,6 +268,7 @@ const initApp = () => {
       case "/":
       case "/index.html":
       case "/tmdb-app/":
+      case "/tmdb-app/index.html":
          displayUpcomingMovies();
          topRatedMovies();
          nowPlayingMovies();
@@ -275,10 +276,12 @@ const initApp = () => {
          break;
       case "/search.html":
       case "/tmdb-app/search.html":
+      case "/tmdb-app/search.html":
          displaySearchToDOM();
          break;
 
       case "/more-info.html":
+      case "/tmdb-app/more-info.html":
       case "/tmdb-app/more-info.html":
          showMoreInfoToDOM();
          break;
