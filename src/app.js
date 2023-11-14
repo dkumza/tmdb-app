@@ -42,14 +42,49 @@ const showMoreInfoToDOM = async () => {
    const selectedID = urlParams.get("targetID");
    console.log(selectedID);
    // * fetch movie details
-   const results = await fetchAPIData(`movie/${selectedID}`);
-   console.log(results);
+   const result = await fetchAPIData(`movie/${selectedID}`);
+   console.log(result);
+
+   const displayInfo = document.querySelector(".more-info-wrap");
+   displayInfo.innerHTML = `
+         <div class="bg-wrap"
+         style="background-image: url(https://image.tmdb.org/t/p/w1280/${
+            result.backdrop_path
+         }); height: 600px">
+            <div 
+                  class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-cover flex justify-center items-center p-12 gap-12"
+                  style="background-color: rgba(116, 116, 116, 0.75)"> 
+
+               <div class="info-left w-1/4">
+                  <div class="info-img">
+                  <img class=""  src="https://image.tmdb.org/t/p/w500/${
+                     result.poster_path
+                  }" alt="${result.title}" srcset=""
+                       >
+                  </div>
+               </div>
+               <div class="info-right w-3/4">
+                  <div class="info-title flex flex-col w-3/4">
+                     <div class="flex gap-4 align-bottom items-baseline ">                      
+                     <h1 class="i-title text-4xl mb-4 font-bold">${
+                        result.title
+                     }</h1>
+                     <h1 class="i-title text-5xl mb-4 ">(${result.release_date.slice(
+                        0,
+                        4
+                     )})</h1>
+                     </div>
+                        <p class="i-para text-xl">${result.overview}</p>
+                  </div>
+               </div>        
+            </div>
+         </div>
+   `;
 };
 
 // * fetch Upcoming movies - 20 by default
 const displayUpcomingMovies = async () => {
    const { results } = await fetchAPIData(`movie/upcoming`);
-   console.log(results);
    const slideShow = document.querySelector(".slideshow-container");
    slideShow.innerHTML = results
       // * show only 5 movies
@@ -155,7 +190,7 @@ const popularPeopleList = async () => {
       .slice(0, 10)
       .map(
          (val) => `        
-         <div class="m-c celeb-1 flex flex-col">
+         <div class=" celeb-1 flex flex-col">
             <img class="" src="https://image.tmdb.org/t/p/w300/${val.profile_path}" alt="Photo of ${val.name}">
             <div>
                <h1 class="">${val.name}</h1>
@@ -239,7 +274,6 @@ const initApp = () => {
       case "/":
       case "/index.html":
       case "/tmdb-app/":
-         console.log("Index file");
          displayUpcomingMovies();
          topRatedMovies();
          nowPlayingMovies();
@@ -247,13 +281,11 @@ const initApp = () => {
          break;
       case "/search.html":
       case "/tmdb-app/search.html":
-         console.log("Search file");
          displaySearchToDOM();
          break;
 
       case "/more-info.html":
       case "/tmdb-app/more-info.html":
-         console.log("More-info file");
          showMoreInfoToDOM();
          break;
    }

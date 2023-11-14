@@ -12,6 +12,11 @@
    @apply w-96;
 }
 
+.menu {
+   @apply hover:font-semibold
+   pl-12 text-xl hover:cursor-pointer;
+}
+
 /* form */
 .search-wrap {
    @apply flex
@@ -20,7 +25,6 @@
 .search-field {
    @apply flex 
    justify-center
-   /* justify-between  */
    align-middle
    items-center
    w-3/4
@@ -91,6 +95,12 @@
    grow;
 }
 
+.celeb-1 {
+   @apply flex 
+   flex-col
+   grow;
+}
+
 /* footer links */
 .li-api {
    @apply text-sm
@@ -130,4 +140,15 @@
    text-4xl
    font-semibold;
    color: #1cb8d9;
+   color: ;
+}
+
+.bg-wrap {
+   @apply relative 
+   overflow-hidden 
+   bg-cover 
+   bg-no-repeat 
+   my-12
+   p-12 
+   text-white;
 }
