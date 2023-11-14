@@ -1,6 +1,6 @@
 # Movie App
 
-This is a JavaScript application that uses the TMDB API, HTML, and TailwindCSS.
+This is a JavaScript application that uses the TMDB API, JavaScript, HTML, and TailwindCSS.
 
 ## Features
 
