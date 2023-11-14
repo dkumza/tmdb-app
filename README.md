@@ -11,7 +11,7 @@ This is a JavaScript application that uses the TMDB API, HTML, and TailwindCSS.
 - Allows users to search for any movie
 - Provides detailed information about each movie when clicked
 
-  ## TODO
+## TODO
 
 - [ ] Implement pagination for the search page
 
