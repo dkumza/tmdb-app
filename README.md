@@ -13,7 +13,7 @@ This is a JavaScript application that uses the TMDB API, HTML, and TailwindCSS.
 
 ## TODO
 
-- [ ] Implement pagination for the search page
+- [x] Implement pagination for the search page
 
 ## Setup
 
