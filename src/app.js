@@ -218,8 +218,9 @@ searchForm.addEventListener("submit", (e) => {
    window.location.href = `search.html?value=${searchValue}`;
 });
 
-// * takes value from input field - fetches data and displays at DOM
-displaySearchToDOM = async () => {
+// * takes value from input field - fetches data and saves to global.search object
+global.search = {};
+getSearchResults = async () => {
    const urlParams = new URLSearchParams(window.location.search);
    const value = urlParams.get("value");
 
@@ -232,42 +233,117 @@ displaySearchToDOM = async () => {
       return;
    }
 
+   global.search.term = value;
+   global.search.page = page;
+   global.search.totalPages = total_pages;
+   global.search.totalResults = total_results;
+
+   showSearchResultsAtDOM(results);
+
+   // showResultsToDOM(results, total_results, page, total_pages, value);
+
+   const paginationTool = () => {
+      const prevPageBtn = document.querySelector(".btn-prev");
+      const nextPageBtn = document.querySelector(".btn-next");
+
+      // * on first page disable prev
+      page === 1 ? (prevPageBtn.disabled = true) : null;
+
+      // * on last page disable next
+      page === total_pages ? (nextPageBtn.disabled = true) : null;
+
+      let nowPage = page;
+
+      nextPageBtn.addEventListener("click", async () => {
+         nowPage++;
+         const { results, total_results, total_pages } = await fetchAPIData(
+            `search/movie?query=${value}&include_adult=false&page=${nowPage}`
+         );
+         console.log(nowPage);
+         // const urlParams = new URLSearchParams(window.location.search);
+         // const value = urlParams.get("value");
+         // showResultsToDOM(results, total_results, page, total_pages);
+      });
+   };
+
+   // * add event on click of picture
+   const selectedItem = document.querySelectorAll(".select-me");
+   getMovieID(selectedItem);
+};
+
+const showSearchResultsAtDOM = (results) => {
    const displaySearchInfo = document.querySelector(".search-head");
    const displaySearchAt = document.querySelector(".search-res");
-   const displayPages = document.querySelector(".pages-wrap");
    displaySearchAt.innerHTML = results
       .map(
          (val) => `
-      
-            <div  class="search-item m-c flex flex-col">
-            ${
-               val.poster_path
-                  ? `<img id="${val.id}" class="select-me" src="https://image.tmdb.org/t/p/w300/${val.poster_path}"
-                           alt=""></img>`
-                  : `<img class="" src="../images/no-image.png"
-                     alt=""></img>`
-            }
-            </div>
-         `
+         
+               <div  class="search-item m-c flex flex-col">
+               ${
+                  val.poster_path
+                     ? `<img id="${val.id}" class="select-me" src="https://image.tmdb.org/t/p/w300/${val.poster_path}"
+                              alt=""></img>`
+                     : `<img class="" src="../images/no-image.png"
+                        alt=""></img>`
+               }
+               </div>
+            `
       )
       .join("");
 
    // * show search info
    displaySearchInfo.innerHTML = `
-               <h2 class="my-4 font-semibold text-xl mt-8">${
-                  results.length
-               } OF ${total_results} RESULTS FOR ${value.toUpperCase()}</h2>`;
+                  <h2 class="my-4 font-semibold text-xl mt-8">${
+                     results.length
+                  } OF ${
+      global.search.total_results
+   } RESULTS FOR ${global.search.term.toUpperCase()}</h2>`;
 
-   // * add event on click of picture
-   const selectedItem = document.querySelectorAll(".select-me");
-   getMovieID(selectedItem);
+   const displayPages = document.querySelector(".pages-wrap");
 
-   // * show pagination for search
+   // * show pages
    displayPages.innerHTML = `
-         <button class="btn-pages btn-prev px-6 py-1 hover:bg-slate-100">Prev</button>
-         <div class="page-counter px-4 py-1">${page} of ${total_pages}</div>
-         <button class="btn-pages btn-next px-6 py-1 hover:bg-slate-100">Next</button>   
-   `;
+                           <button class="btn-pages btn-prev px-6 py-1 hover:bg-slate-100">Prev</button>
+                           <div class="page-counter px-4 py-1">${global.search.page} of ${global.search.totalPages}</div>
+                           <button class="btn-pages btn-next px-6 py-1 hover:bg-slate-100">Next</button>
+                     `;
+};
+
+// * show search results at dom
+const showResultsToDOM = (results, total_results, page, total_pages, value) => {
+   const displaySearchInfo = document.querySelector(".search-head");
+   const displaySearchAt = document.querySelector(".search-res");
+   displaySearchAt.innerHTML = results
+      .map(
+         (val) => `
+         
+               <div  class="search-item m-c flex flex-col">
+               ${
+                  val.poster_path
+                     ? `<img id="${val.id}" class="select-me" src="https://image.tmdb.org/t/p/w300/${val.poster_path}"
+                              alt=""></img>`
+                     : `<img class="" src="../images/no-image.png"
+                        alt=""></img>`
+               }
+               </div>
+            `
+      )
+      .join("");
+
+   // * show search info
+   // displaySearchInfo.innerHTML = `
+   //                <h2 class="my-4 font-semibold text-xl mt-8">${
+   //                   results.length
+   //                } OF ${total_results} RESULTS FOR ${value.toUpperCase()}</h2>`;
+
+   const displayPages = document.querySelector(".pages-wrap");
+
+   // * show pages
+   displayPages.innerHTML = `
+                           <button class="btn-pages btn-prev px-6 py-1 hover:bg-slate-100">Prev</button>
+                           <div class="page-counter px-4 py-1">${page} of ${total_pages}</div>
+                           <button class="btn-pages btn-next px-6 py-1 hover:bg-slate-100">Next</button>
+                     `;
 
    const prevPageBtn = document.querySelector(".btn-prev");
    const nextPageBtn = document.querySelector(".btn-next");
@@ -278,9 +354,51 @@ displaySearchToDOM = async () => {
    // * on last page disable next
    page === total_pages ? (nextPageBtn.disabled = true) : null;
 
-   // * go to next page on next button click
-   nextPageBtn.addEventListener("click", async () => {});
+   nextPageBtn.addEventListener("click", async () => {
+      page++;
+      const { results, total_results, total_pages } = await fetchAPIData(
+         `search/movie?query=${value}&include_adult=false&page=${page}`
+      );
+      // const urlParams = new URLSearchParams(window.location.search);
+      // const value = urlParams.get("value");
+      showResultsToDOM(results, total_results, page, total_pages);
+   });
+
+   // * add event on click of picture
+   const selectedItem = document.querySelectorAll(".select-me");
+   getMovieID(selectedItem);
+   // showPagination(results, total_results, page, total_pages);
 };
+
+// const showPagination = (results, total_results, page, total_pages, value) => {
+//    const displayPages = document.querySelector(".pages-wrap");
+//    displayPages.innerHTML = `
+//          <button class="btn-pages btn-prev px-6 py-1 hover:bg-slate-100">Prev</button>
+//          <div class="page-counter px-4 py-1">${page} of ${total_pages}</div>
+//          <button class="btn-pages btn-next px-6 py-1 hover:bg-slate-100">Next</button>
+//    `;
+
+//    const prevPageBtn = document.querySelector(".btn-prev");
+//    const nextPageBtn = document.querySelector(".btn-next");
+
+//    // * on first page disable prev
+//    page === 1 ? (prevPageBtn.disabled = true) : null;
+
+//    // * on last page disable next
+//    page === total_pages ? (nextPageBtn.disabled = true) : null;
+
+//    // * go to next page on next button click
+//    nextPageBtn.addEventListener("click", async () => {
+//       page++;
+//       const { results, total_pages } = await fetchAPIData(
+//          `search/movie?query=${value}&include_adult=false&page=${page}`
+//       );
+//       console.log(page);
+//       showResultsToDOM(results);
+//       // console.log("first");
+//    });
+//    // showTest(results, nowPage, total_pages);
+// };
 
 // * init app
 const initApp = () => {
@@ -297,7 +415,7 @@ const initApp = () => {
       case "/search.html":
       case "/tmdb-app/search.html":
       case "/tmdb-app/search.html":
-         displaySearchToDOM();
+         getSearchResults();
          break;
 
       case "/more-info.html":
