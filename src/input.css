@@ -13,7 +13,9 @@
 }
 
 .menu {
-   @apply hover:font-semibold
+   @apply hidden
+   lg:block
+   hover:font-semibold
    pl-12 text-xl hover:cursor-pointer;
 }
 
@@ -108,11 +110,13 @@
 }
 
 .dot-counter {
-   @apply text-center absolute
+   @apply hidden
+
+   text-center absolute
    bottom-0 right-0
    mr-16
    mb-8
-   flex
+   lg:flex
    items-center;
 }
 
@@ -135,12 +139,14 @@
 .slide-title {
    @apply absolute
    bottom-0
-   mb-8
-   ml-16
-   text-4xl
+   lg:mb-8
+   lg:ml-16
+   ml-4
+   mb-2
+   lg:text-4xl
+   md:text-xl
    font-semibold;
    color: #1cb8d9;
-   color: ;
 }
 
 .bg-wrap {

@@ -224,7 +224,7 @@ displaySearchToDOM = async () => {
    const value = urlParams.get("value");
 
    const { results, total_results, page, total_pages } = await fetchAPIData(
-      `search/movie?query=${value}&include_adult=false`
+      `search/movie?query=${value}&include_adult=false&page=1`
    );
 
    if (results.length === 0) {
