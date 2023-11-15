@@ -234,6 +234,7 @@ displaySearchToDOM = async () => {
 
    const displaySearchInfo = document.querySelector(".search-head");
    const displaySearchAt = document.querySelector(".search-res");
+   const displayPages = document.querySelector(".pages-wrap");
    displaySearchAt.innerHTML = results
       .map(
          (val) => `
@@ -260,6 +261,25 @@ displaySearchToDOM = async () => {
    // * add event on click of picture
    const selectedItem = document.querySelectorAll(".select-me");
    getMovieID(selectedItem);
+
+   // * show pagination for search
+   displayPages.innerHTML = `
+         <button class="btn-pages btn-prev px-6 py-1 hover:bg-slate-100">Prev</button>
+         <div class="page-counter px-4 py-1">${page} of ${total_pages}</div>
+         <button class="btn-pages btn-next px-6 py-1 hover:bg-slate-100">Next</button>   
+   `;
+
+   const prevPageBtn = document.querySelector(".btn-prev");
+   const nextPageBtn = document.querySelector(".btn-next");
+
+   // * on first page disable prev
+   page === 1 ? (prevPageBtn.disabled = true) : null;
+
+   // * on last page disable next
+   page === total_pages ? (nextPageBtn.disabled = true) : null;
+
+   // * go to next page on next button click
+   nextPageBtn.addEventListener("click", async () => {});
 };
 
 // * init app

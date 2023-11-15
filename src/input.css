@@ -158,3 +158,18 @@
    p-12 
    text-white;
 }
+
+.pages-wrap {
+   @apply flex
+   w-fit
+   align-middle
+   justify-center
+   items-center
+   text-center
+   border
+    m-4
+    /* px-4 */
+    divide-x;
+
+   /* background-color: #1cb8d9; */
+}
