@@ -21,8 +21,7 @@
 
 /* form */
 .search-wrap {
-   @apply flex
-   items-start;
+   @apply w-full flex align-middle;
 }
 .search-field {
    @apply flex 
@@ -31,6 +30,10 @@
    items-center
    w-3/4
    shadow-sm;
+}
+
+.form-wrap {
+   @apply w-full flex justify-center md:justify-end mt-4 md:mt-0;
 }
 
 .search-value {
@@ -54,6 +57,9 @@
    hover:bg-gray-50;
 }
 
+.feat-wrap {
+   @apply relative flex justify-center flex-grow;
+}
 .latest-cont {
    @apply flex 
    w-full
@@ -172,4 +178,8 @@
     divide-x;
 
    /* background-color: #1cb8d9; */
+}
+
+.top-wrap {
+   @apply flex p-2 items-center md:flex-row flex-col justify-center align-middle;
 }
